@@ -33,3 +33,10 @@ This will create a directory and `manage.py` file. `manage.py` is a wrapper for 
 # Creating an `app`
 
 In `settings.py` you'll notice `INSTALLED_APPS`. This is a list of apps Django is using. To add a new app run: `python manage.py startapp playground`. After running the command, notice a new dir `playground` was created. You'll then need to add `'playground'` to the `INSTALLED_APPS` list.
+
+# Add an endpoint and render a template
+
+1. Create a new app using `python manage.py startapp {name}`
+1. Add it to `INSTALLED_APPS` in `settings.py`
+1. Add to the root `urls.py`
+1. Create a `urls.py` file in the new app folder
