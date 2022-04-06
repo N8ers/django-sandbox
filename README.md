@@ -18,6 +18,7 @@ This is a place for me to messaround with Django.
 ## Creating Django Project
 
 `django-admin startproject test-project .`
+
 This will create a directory and `manage.py` file. `manage.py` is a wrapper for the project. So we will use `manage.py` as a command instead of `django-admin`.
 
 ## Run Django Server
@@ -40,3 +41,12 @@ In `settings.py` you'll notice `INSTALLED_APPS`. This is a list of apps Django i
 1. Add it to `INSTALLED_APPS` in `settings.py`
 1. Add to the root `urls.py`
 1. Create a `urls.py` file in the new app folder
+
+# Adding the Django debugger
+
+1. `python -m pip install django-debug-toolbar`
+1. `pipenv install django-debug-toolbar`
+1. Add `'debug_toolbar` to `INSTALLED_APPS` in `settings.py`
+1. Add a new url to main `urls.py` `urlpatterns`: `path('__debug__/', include(debug_toolbar.urls))`
+1. Add to the `MIDDLEWARE` in `settings.py`: `'debug_toolbar.middleware.DebugToolbarMiddleware'`
+1. Configure a `INTERNAL_IPS = [ '127.0.0.1' ]` to `settings.py`
