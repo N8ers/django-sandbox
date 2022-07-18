@@ -1,4 +1,5 @@
 ## Getting Started
+
 1. Clone the project
 1. Create an env `python3 -m venv .`
 1. Enter the env `source bin/activate`
@@ -19,4 +20,5 @@ point to the correct python intruprter by pressing `shift + cmd + p`, then type 
 ## Django
 
 create a project: `python -m django startproject project_name .`
-run server: `python manage.py run server`
+create an app: `python manage.py startapp app_name`
+run server: `python manage.py runserver`
