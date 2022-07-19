@@ -22,3 +22,8 @@ point to the correct python intruprter by pressing `shift + cmd + p`, then type 
 create a project: `python -m django startproject project_name .`
 create an app: `python manage.py startapp app_name`
 run server: `python manage.py runserver`
+
+## Migrations
+
+run migrations: `python manage.py migrate`
+create a migration: `python manage.py makemigrations`
