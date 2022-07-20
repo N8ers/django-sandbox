@@ -1,10 +1,14 @@
 from django.http import HttpResponse
 
+from articles.models import Article
+
 
 def home_view(request):
-    name = "tsuki"
+    article_obj = Article.objects.get(id=2)
+
     HTML_STRING = f"""
-        <h1>Allo {name}</h1>
+        <h1>Allo {article_obj.title} | ({article_obj.id})</h1>
+        <p>{article_obj.content}</p>
     """
 
     return HttpResponse(HTML_STRING)
