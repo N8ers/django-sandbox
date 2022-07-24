@@ -34,22 +34,34 @@ from django.contrib.auth.models import User
 from snippets.models import Snippet
 
 # Using the ModelSerializer
-class SnippetSerializer(serializers.ModelSerializer):
+class SnippetSerializer(serializers.HyperlinkedModelSerializer):
     """
     The source argument controls which attribute is used to populate a field,
     and can point at any attribute on the serialized instance.
     """
 
     owner = serializers.ReadOnlyField(source="owner.username")
+    highlight = serializers.HyperlinkedIdentityField(
+        view_name="snippet-highlight", format="html"
+    )
 
     class Meta:
         model = Snippet
-        fields = ["id", "title", "code", "linenos", "language", "style", "owner"]
+        fields = [
+            "id",
+            "title",
+            "code",
+            "linenos",
+            "language",
+            "style",
+            "owner",
+            "highlight",
+        ]
 
 
 class UserSerializer(serializers.ModelSerializer):
-    snippets = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Snippet.objects.all()
+    snippets = serializers.HyperlinkedRelatedField(
+        many=True, view_name="snippet-detail", read_only=True
     )
 
     class Meta:
