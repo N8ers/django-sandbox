@@ -4,7 +4,12 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from logs import views
 
 urlpatterns = [
-    path("logs/", views.log_list),
+    path("logs/function", views.log_list),  # with function view
+    path("logs/class", views.LogList.as_view()),  # with class view
+    path(
+        "logs/class_generic", views.LogListGeneric.as_view()
+    ),  # with class view with generics
+    # the other endpoint below
     path("logs/<int:pk>/", views.log_detail),
 ]
 

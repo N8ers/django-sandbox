@@ -1,8 +1,10 @@
-from cmath import log10
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.http import Http404
+from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework import generics
 
 
 from logs.models import Log
@@ -29,6 +31,30 @@ def log_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class LogList(APIView):
+    def get(self, request, format=None):
+        logs = Log.objects.all()
+        serializer = LogSerializer(logs, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = LogSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogListGeneric(generics.ListCreateAPIView):
+    queryset = Log.objects.all()
+    serializer_class = LogSerializer
+
+
+"""
+The other endpoint below
+"""
+
+
 @api_view(["GET", "PUT", "DELETE"])
 def log_detail(request, pk):
 
@@ -49,5 +75,5 @@ def log_detail(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == "DELETE":
-        log10.delete()
+        log.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
